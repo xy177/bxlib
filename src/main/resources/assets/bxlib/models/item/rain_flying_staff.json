@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "bxlib:items/rain_flying_staff"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "emcapi.bxlib.mixin",
+  "minVersion": "0.8",
+  "setSourceFile": true,
+  "priority": 0,
+  "refmap": "mixins.bxhappy.refmap.json",
+  "mixins": [
+    "MixinCoffeeHouse",
+    "MixinToolHelper"
+  ],
+  "client": [
+  ]
+}

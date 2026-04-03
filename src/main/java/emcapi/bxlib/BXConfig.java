@@ -68,4 +68,63 @@ public class BXConfig {
         @Config.Comment("Distance armor(贴贴/扰动) resist to far target")
         public float DISTANCE_RESIST_FAR = 1f;
     }
+
+    @Config.Comment("Configuration for Tinkers' Nunchaku / 匠魂双节棍配置")
+    public static final NunchakuConfig NUNCHAKU_CONFIG = new NunchakuConfig();
+
+    public static class NunchakuConfig {
+
+        // ── 基础攻击速度 ────────────────────────────────────────────
+        @Config.Comment({
+                "Attack speed of the Tinkers' Nunchaku.",
+                "Range: 0.1 (very slow) ~ 4.0 (extremely fast). Vanilla sword = 1.6.",
+                "匠魂双节棍的攻击速度，原版剑为 1.6，数值越高越快。"
+        })
+        @Config.RangeDouble(min = 0.1, max = 4.0)
+        public double ATTACK_SPEED = 2.5d;
+
+        // ── 连击系统 ────────────────────────────────────────────────
+
+        @Config.Comment({
+                "Base combo power cap before binding material modifier.",
+                "Actual cap = BASE_COMBO_CAP × (binding.extraDurability / 50) × COMBO_CAP_BINDING_MULTIPLIER",
+                "连击能量基础上限（未乘以绑定结系数）。",
+                "实际上限 = 此值 × (绑定结extraDurability/50) × COMBO_CAP_BINDING_MULTIPLIER"
+        })
+        @Config.RangeDouble(min = 0.1, max = 5.0)
+        public float BASE_COMBO_CAP = 1.0f;
+
+        @Config.Comment({
+                "Multiplier applied on top of the binding material's durability coefficient.",
+                "Increase this to allow higher combo caps for better binding materials.",
+                "绑定结耐久系数的额外倍率。调大此值可让高级绑定结获得更高的连击上限。"
+        })
+        @Config.RangeDouble(min = 0.1, max = 10.0)
+        public float COMBO_CAP_BINDING_MULTIPLIER = 1.0f;
+
+        @Config.Comment({
+                "Combo power gained per successful hit.",
+                "每次成功命中积累的连击能量值。"
+        })
+        @Config.RangeDouble(min = 0.01, max = 1.0)
+        public float COMBO_GAIN_PER_HIT = 0.1f;
+
+        @Config.Comment({
+                "Ticks of inactivity before combo power starts decaying.",
+                "20 ticks = 1 second. Default 60 = 3 seconds.",
+                "停止命中多少 tick 后开始衰减连击能量。20 tick = 1 秒，默认 60 = 3 秒。"
+        })
+        @Config.RangeInt(min = 1)
+        public int COMBO_DECAY_DELAY = 60;
+
+        @Config.Comment({
+                "Combo power decay amount per tick after the delay.",
+                "Higher = faster decay. Default 0.02 means ~50 ticks to fully drain from cap 1.0.",
+                "超过延迟后每 tick 衰减的连击能量。值越大衰减越快。",
+                "默认 0.02 意味着上限为 1.0 时约需 50 tick（2.5 秒）完全归零。"
+        })
+        @Config.RangeDouble(min = 0.001, max = 1.0)
+        public float COMBO_DECAY_RATE = 0.02f;
+    }
+
 }

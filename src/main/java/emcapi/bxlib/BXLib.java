@@ -2,7 +2,6 @@ package emcapi.bxlib;
 
 import emcapi.bxlib.gui.GuiModRisk;
 import emcapi.bxlib.proxy.CommonProxy;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -11,14 +10,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import static emcapi.bxlib.proxy.CommonProxy.modids;
 
-@Mod(modid = BXLib.MODID, name = BXLib.NAME, version = BXLib.VERSION,dependencies = "required-after:mantle;required-after:conarm;required-after:tconstruct;required-after:coffeework")
+@Mod(modid = BXLib.MODID, name = BXLib.NAME, version = BXLib.VERSION,
+        dependencies = "required-after:mantle;required-after:conarm;required-after:tconstruct;required-after:coffeework;after:forge")
 public class BXLib
 {
     public static final String MODID = "bxlib";

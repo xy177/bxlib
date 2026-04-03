@@ -1,9 +1,8 @@
 package emcapi.bxlib.proxy;
 
-import emcapi.bxlib.tconstruct.traits.DistanceTrait;
-import emcapi.bxlib.tconstruct.traits.EMCTrait;
-import emcapi.bxlib.tconstruct.traits.GanbjTrait;
-import emcapi.bxlib.tconstruct.traits.LeonTrait;
+import emcapi.bxlib.init.ItemInit;
+import emcapi.bxlib.tconstruct.tools.TinkerNunchaku;
+import emcapi.bxlib.tconstruct.traits.*;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -22,6 +21,7 @@ import java.util.function.Supplier;
 public class CommonProxy {
     public static final List<String> modids = Arrays.asList("torcherino","projecte");
     public void preInit(FMLPreInitializationEvent event) {
+        TinkerRegistry.addTrait(TinkerNunchaku.COMBO_TRAIT);
         TinkerRegistry.addTrait(new LeonTrait());
         TinkerRegistry.addTrait(new GanbjTrait());
         TinkerRegistry.addTrait(new EMCTrait());
@@ -30,10 +30,17 @@ public class CommonProxy {
         TinkerRegistry.addTrait(new DistanceTrait.DistanceArmorTrait());
     }
 
-    public void init(FMLInitializationEvent event) {
-
-    }
 
     public void postInit(FMLPostInitializationEvent event) {
     }
+
+
+    public void init(FMLInitializationEvent event) {
+        // ★ 注册到工具站（Tool Station）
+        TinkerRegistry.registerToolCrafting(ItemInit.TinkerNunchaku);
+        // 若希望仅在工具锻造台（Tool Forge）合成，改用：
+        // TinkerRegistry.registerToolForgeCrafting(ItemInit.TinkerNunchaku);
+    }
 }
+
+

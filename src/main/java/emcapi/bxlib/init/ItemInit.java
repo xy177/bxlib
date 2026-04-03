@@ -3,6 +3,7 @@ package emcapi.bxlib.init;
 import emcapi.bxlib.BXLib;
 import emcapi.bxlib.item.EMCWorldIngot;
 import emcapi.bxlib.item.ItemRainFlyingStaff;
+import emcapi.bxlib.tconstruct.tools.TinkerNunchaku;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -21,22 +22,44 @@ import java.util.Objects;
  *  2023/01/11
  */
 
+
 @Mod.EventBusSubscriber(modid = BXLib.MODID)
 public class ItemInit {
+
     private static final List<Item> targets = new LinkedList<>();
     public static Item EMCWorldIngot = add(new EMCWorldIngot());
     public static Item RainFlyingStaff = add(new ItemRainFlyingStaff());
+    public static TinkerNunchaku TinkerNunchaku;
+
     private static Item add(Item target){
         targets.add(target);
         return target;
     }
+
     @SubscribeEvent
+    public static void registerItems(RegistryEvent.Register<Item> event) {
+        IForgeRegistry<Item> registry = event.getRegistry();
+
+        // 先注册已有物品 ...
+        for (Item target : targets) {
+            registry.register(target);
+        }
+
+        // ★ 双节棍必须在事件回调中注册，不能在静态块中实例化后等待！
+        TinkerNunchaku nunchaku = new TinkerNunchaku();
+        nunchaku.setRegistryName(BXLib.MODID, "tinkernunchaku");
+        nunchaku.setTranslationKey("tinkernunchaku");
+        registry.register(nunchaku);
+        ItemInit.TinkerNunchaku = nunchaku; // 保存引用供后续使用
+    }
+
+    /*@SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event){
         IForgeRegistry<Item> registry = event.getRegistry();
         for (Item target : targets) {
             registry.register(target);
         }
-    }
+    }*/
     @SubscribeEvent
     public static void onAddModels(ModelRegistryEvent event){
         for (Item item:targets) {
@@ -49,4 +72,5 @@ public class ItemInit {
         }
 
     }
+
 }
